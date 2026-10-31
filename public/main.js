@@ -31,6 +31,7 @@ const engineStarted = new Promise((resolve) => {
   const needle = document.getElementById("needle");
   const rpmEl = document.getElementById("rpm");
   const text = document.getElementById("loader-text");
+  const lbanner = document.getElementById("loader-banner");
   const engine = document.getElementById("engine");
   const pistonsG = document.getElementById("pistons");
   const puffsG = document.getElementById("puffs");
@@ -65,6 +66,7 @@ const engineStarted = new Promise((resolve) => {
       rpm = 300 + smooth((t - 1.5) / 0.5) * 3900; text.textContent = "Engine started";
     } else if (t < 2.8) { rpm = 4200 - smooth((t - 2.0) / 0.8) * 3350; }
     else { rpm = 850 + Math.sin(t * 9) * 25; text.textContent = "Idling. Welcome in."; engine.classList.remove("shake"); }
+    lbanner.dataset.state = fired ? "ready" : "wait";
 
     // needle + readout
     const ang = -90 + Math.min(8000, Math.max(0, rpm)) / 8000 * 180;
@@ -263,7 +265,9 @@ const engineStarted = new Promise((resolve) => {
     lamps.red.setAttribute("fill", "#5E2B29");
     tags.status.textContent = running ? "Running" : "Stopped";
     tags.status.dataset.state = running ? "running" : "stopped";
-    toggle.textContent = running ? "Stop the line" : "Start the line";
+    toggle.className = "pb " + (running ? "pb-red" : "pb-green armed");
+    document.getElementById("line-sr").textContent = running ? "Stop the line" : "Start the line";
+    document.getElementById("line-label").textContent = running ? "Stop" : "Start";
     toggle.setAttribute("aria-pressed", String(running));
   }
 

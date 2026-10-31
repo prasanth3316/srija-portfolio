@@ -16,19 +16,21 @@
 
   <!-- Loader: engine start -->
   <div class="loader" id="loader" role="status" aria-live="polite">
-    <div class="loader-inner">
-      <svg class="tach" viewBox="0 0 240 160" aria-hidden="true">
+    <div class="bezel loader-screen">
+      <div class="screen-bar"><span class="screen-name">Line 1, engine start</span><span class="screen-mode">Mode <b>Auto</b></span><span class="screen-clock" data-clock></span></div>
+      <div class="banner" id="loader-banner" data-state="wait"><span class="banner-lamp" aria-hidden="true"></span><span id="loader-text">Ignition on</span></div>
+      <div class="screen-body loader-body">
+        <svg class="tach" viewBox="0 0 240 160" aria-hidden="true">
         <path d="M30 140 A90 90 0 1 1 210 140" class="tach-arc"/>
         <path d="M184.9 63.3 A90 90 0 0 1 210 140" class="tach-red"/>
         <g id="tach-ticks"></g>
         <g id="needle" transform="rotate(-135 120 140)">
-          <path d="M117 140 L120 60 L123 140 Z" fill="#F2B705"/>
+          <path d="M117 140 L120 60 L123 140 Z" fill="#C8312B"/>
         </g>
-        <circle cx="120" cy="140" r="9" fill="#F2F3F2"/>
+        <circle cx="120" cy="140" r="9" fill="#1D252C"/>
       </svg>
-      <div class="rpm"><strong id="rpm">0</strong> rpm</div>
-
-      <svg class="engine" id="engine" viewBox="0 0 260 150" aria-hidden="true">
+        <div class="rpm"><strong id="rpm">0</strong> rpm</div>
+        <svg class="engine" id="engine" viewBox="0 0 260 150" aria-hidden="true">
         <g id="puffs"></g>
         <rect x="214" y="48" width="34" height="12" rx="4" fill="#56616A"/>
         <rect x="30" y="34" width="184" height="18" rx="5" fill="#8E979C"/>
@@ -37,11 +39,10 @@
         <rect x="24" y="112" width="196" height="26" rx="8" fill="#56616A"/>
         <circle cx="122" cy="125" r="8" fill="#3B454C"/>
       </svg>
-      <p class="loader-text" id="loader-text">Ignition on</p>
-      <button type="button" class="loader-skip" id="loader-skip">Skip intro</button>
+        <button type="button" class="hmi-btn loader-skip" id="loader-skip">Skip intro</button>
+      </div>
     </div>
   </div>
-  <a class="skip" href="#main">Skip to content</a>
 
   <header class="topbar">
     <a class="brand" href="#top">Srija Gummadi</a>
@@ -169,7 +170,7 @@
             <div><span>Rejected</span><strong id="tag-bad">0</strong></div>
             <div><span>Last cycle</span><strong id="tag-cycle">–</strong></div>
           </div>
-          <button class="pushbutton" id="line-toggle" type="button" aria-pressed="true">Stop the line</button>
+          <div class="pb-unit pb-small"><button class="pb pb-red" id="line-toggle" type="button" aria-pressed="true"><span class="sr-only" id="line-sr">Stop the line</span></button><span class="pb-label" id="line-label">Stop</span></div>
         </figcaption>
       </figure>
     </section>
@@ -180,6 +181,9 @@
         <div class="station-plate"><span class="op">OP 10</span><h2 id="what-h">What I do</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
         <p>Every automated line runs the same loop. I work on all four stages of it, on real production equipment.</p>
       </div>
+      <div class="bezel">
+        <div class="screen-bar"><span class="screen-name">Control loop</span><span class="screen-mode">Stages <b>4</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="screen-body">
       <ol class="cloop">
         <li class="node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Sense</h3><span class="fp-tag">Stage 1</span></div>
@@ -207,6 +211,8 @@
         </li>
       </ol>
       <p class="feedback"><span aria-hidden="true"></span>Then I close the loop: I/O checkout, commissioning, startup, and root-cause fixes that keep uptime high.</p>
+        </div>
+      </div>
     </section>
 
     <!-- EXPERIENCE as ladder logic -->
@@ -215,6 +221,9 @@
         <div class="station-plate"><span class="op">OP 20</span><h2 id="exp-h">Where I’ve worked</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
         <p>Written as ladder logic, the language I use most at work. Newest at the top.</p>
       </div>
+      <div class="bezel">
+        <div class="screen-bar"><span class="screen-name">Routine: Career</span><span class="screen-mode">Rungs <b>4</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="screen-body ladder-body">
       <ol class="ladder">
         <li class="rung">
           <span class="rung-no">000</span>
@@ -279,6 +288,8 @@
           </div>
         </li>
       </ol>
+        </div>
+      </div>
     </section>
 
     <!-- PROJECTS as drawing sheets -->
@@ -288,8 +299,12 @@
         <p>Each project gets its own drawing sheet.</p>
       </div>
 
+      <div class="bezel">
+        <div class="screen-bar"><span class="screen-name">Project library</span><span class="screen-mode">Drawings <b>6</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="screen-body">
       <div class="sheets">
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 01</span><span class="fp-tag">2024</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <rect x="10" y="78" width="200" height="12" rx="6" class="ink-fill"/>
             <rect x="40" y="58" width="22" height="20" class="box"/><rect x="100" y="58" width="22" height="20" class="box blue"/>
@@ -299,9 +314,10 @@
           </svg>
           <h3>Material sorting with SCADA</h3>
           <p>Parts get sorted automatically, and operators watch the whole line on one Ignition screen.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2024</dd></div><div><dt>Tools</dt><dd>Ignition, PLC, Python</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>Ignition</li><li>PLC</li><li>Python</li></ul>
         </article>
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 02</span><span class="fp-tag">2024</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <path d="M30 100 L70 60 L170 60 L130 100 Z" class="panel"/>
             <path d="M50 80 L150 80 M100 60 L80 100 M135 60 L115 100 M65 60 L45 100" class="ink" stroke-width="1.5"/>
@@ -312,9 +328,10 @@
           </svg>
           <h3>Finding solar panels under snow</h3>
           <p>A YOLOv8 model that spots snow-covered solar panels in drone photos.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2024</dd></div><div><dt>Tools</dt><dd>Python, YOLOv8</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>Python</li><li>YOLOv8</li></ul>
         </article>
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 03</span><span class="fp-tag">2023</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <rect x="20" y="40" width="80" height="44" rx="6" class="panel"/>
             <circle cx="60" cy="62" r="16" class="ink-fill"/>
@@ -326,9 +343,10 @@
           </svg>
           <h3>Drive-by-wire throttle</h3>
           <p>An embedded throttle controller that two engine computers talk to over CAN.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2023</dd></div><div><dt>Tools</dt><dd>Simulink, Stateflow, CAN</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>Simulink</li><li>Stateflow</li><li>CAN</li></ul>
         </article>
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 04</span><span class="fp-tag">2023</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <rect x="10" y="88" width="150" height="10" rx="5" class="ink-fill"/>
             <rect x="80" y="18" width="22" height="20" rx="4" fill="#2563A8"/>
@@ -339,9 +357,10 @@
           </svg>
           <h3>Robot vision cell</h3>
           <p>A camera identifies parts on a conveyor and a robot sorts them, all run by one PLC. This one became a paper.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2023</dd></div><div><dt>Tools</dt><dd>PLC, HMI, robot vision</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>PLC</li><li>HMI</li><li>robot vision</li></ul>
         </article>
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 05</span><span class="fp-tag">2022</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <path d="M110 10 V36" class="ink" stroke-width="10" stroke-linecap="round"/>
             <rect x="70" y="36" width="80" height="14" rx="4" class="ink-fill"/>
@@ -351,9 +370,10 @@
           </svg>
           <h3>Suction gripper for a FANUC robot</h3>
           <p>I designed the gripper, programmed the pick-and-place, and cut the cycle time.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2022</dd></div><div><dt>Tools</dt><dd>FANUC, CAD</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>FANUC</li><li>CAD</li></ul>
         </article>
-        <article class="sheet">
+        <article class="sheet node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 06</span><span class="fp-tag">2022</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
             <rect x="30" y="34" width="56" height="56" rx="6" class="panel"/>
             <circle cx="58" cy="62" r="14" class="ink-fill"/>
@@ -364,8 +384,10 @@
           </svg>
           <h3>Stepper motor that follows sensors</h3>
           <p>A motor that sets its speed and position in real time from ultrasonic, IR and light sensors.</p>
-          <dl class="title-block"><div><dt>Year</dt><dd>2022</dd></div><div><dt>Tools</dt><dd>LabVIEW</dd></div></dl>
+          <ul class="chips" aria-label="Tools"><li>LabVIEW</li></ul>
         </article>
+      </div>
+        </div>
       </div>
     </section>
 
@@ -376,6 +398,9 @@
         <p>A lot of controls work comes down to making a process value follow a setpoint. Drag the gains and watch the step response of a simple mass-spring-damper.</p>
       </div>
 
+      <div class="bezel">
+        <div class="screen-bar"><span class="screen-name">PID loop tuning</span><span class="screen-mode">Loop <b>1</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="screen-body">
       <div class="loop">
         <div class="loop-plot">
           <canvas id="pid" width="760" height="360" aria-label="Step response plot. Setpoint is a dashed line at 1.0; the response curve updates as you change the gains."></canvas>
@@ -396,10 +421,12 @@
             <input type="range" id="kd" min="0" max="5" step="0.05" value="0.6">
           </label>
           <div class="presets" role="group" aria-label="Presets">
-            <button type="button" data-p="0.6,0,0">Sluggish</button>
-            <button type="button" data-p="9,3,0">Ringing</button>
-            <button type="button" data-p="4.2,1.6,2.2">Tuned</button>
+            <button type="button" class="hmi-btn" data-p="0.6,0,0">Sluggish</button>
+            <button type="button" class="hmi-btn" data-p="9,3,0">Ringing</button>
+            <button type="button" class="hmi-btn" data-p="4.2,1.6,2.2">Tuned</button>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </section>
@@ -583,14 +610,14 @@
               </g>
             </svg>
             <div class="zone-nav" role="group" aria-label="Zones">
-              <button type="button" data-zone="scada">Control room</button>
-              <button type="button" data-zone="controls">Electrical room</button>
-              <button type="button" data-zone="engineering">Engineering</button>
-              <button type="button" data-zone="research">Robotics lab</button>
-              <button type="button" data-zone="iiot">Infeed and IIoT</button>
-              <button type="button" data-zone="robots">Robot cell</button>
-              <button type="button" data-zone="safety">Safety</button>
-              <button type="button" data-zone="vision">Vision</button>
+              <button type="button" class="hmi-btn" data-zone="scada">Control room</button>
+              <button type="button" class="hmi-btn" data-zone="controls">Electrical room</button>
+              <button type="button" class="hmi-btn" data-zone="engineering">Engineering</button>
+              <button type="button" class="hmi-btn" data-zone="research">Robotics lab</button>
+              <button type="button" class="hmi-btn" data-zone="iiot">Infeed and IIoT</button>
+              <button type="button" class="hmi-btn" data-zone="robots">Robot cell</button>
+              <button type="button" class="hmi-btn" data-zone="safety">Safety</button>
+              <button type="button" class="hmi-btn" data-zone="vision">Vision</button>
             </div>
           </div>
 
@@ -610,9 +637,10 @@
         <div class="station-plate"><span class="op">OP 60</span><h2 id="vis-h">Visitors by country</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
         <p id="vis-summary">Loading visitor counts…</p>
       </div>
-      <div class="vis-grid">
-        <figure class="bezel vis-screen">
-          <div class="screen-bar"><span class="screen-name">Visitor map</span><span class="screen-mode">Countries <b id="vis-n">0</b></span><span class="screen-clock" data-clock></span></div>
+      <div class="bezel vis-screen">
+        <div class="screen-bar"><span class="screen-name">Visitor map</span><span class="screen-mode">Countries <b><span id="vis-n">0</span></b></span><span class="screen-clock" data-clock></span></div>
+        <div class="vis-body">
+          <figure class="vis-figure">
           <div class="vis-map-wrap">
             <svg id="vis-map" viewBox="0 0 960 470" role="img" aria-label="World map with countries shaded by number of visitors. The table next to it lists the same numbers."></svg>
             <div class="vis-tip" id="vis-tip" role="status" hidden></div>
@@ -622,13 +650,14 @@
             <span class="lg-ramp"><span>Fewer</span><i style="background:#86ACD9"></i><i style="background:#5E8FCB"></i><i style="background:#3B72B8"></i><i style="background:#225A9A"></i><i style="background:#163D69"></i><span>More</span></span>
             <span class="lg-you"><i></i>You</span>
           </figcaption>
-        </figure>
-        <div class="vis-side">
+          </figure>
+          <div class="vis-side">
           <table class="visitors" id="vis-table" hidden>
             <caption class="sr-only">Visitors by country</caption>
             <thead><tr><th scope="col">Country</th><th scope="col">Visitors</th><th scope="col"><span class="sr-only">Share</span></th></tr></thead>
             <tbody></tbody>
           </table>
+          </div>
         </div>
       </div>
     </section>
