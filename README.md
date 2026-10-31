@@ -13,8 +13,7 @@ wrangler.jsonc      Cloudflare config: site folder and the VISITS storage bindin
 ## Deploy on Cloudflare (Workers, connected to GitHub)
 
 1. Cloudflare dashboard → Storage & Databases → KV → Create a namespace (e.g. `portfolio-visits`). Copy its **ID**.
-2. Paste that ID into `wrangler.jsonc` in place of `PASTE_YOUR_KV_NAMESPACE_ID_HERE`, commit and push.
-3. Workers & Pages → Create → Import a repository → pick this repo. Defaults are fine (deploy command `npx wrangler deploy`).
+2. Workers & Pages → Create → Import a repository → pick this repo. Defaults are fine (deploy command `npx wrangler deploy`).
    The Worker name in Cloudflare must match `"name"` in `wrangler.jsonc` (`srija-portfolio`).
 
 Every push to `main` redeploys. The storage binding comes from `wrangler.jsonc`, so there's nothing to add under Settings → Bindings.
