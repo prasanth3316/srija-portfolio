@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Srija Gummadi, Controls Engineer</title>
+  <meta name="description" content="Srija Gummadi is a controls and mechatronics engineer working on PLCs, robotics, machine vision and SCADA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <script>document.documentElement.classList.add("js")</script>
+  <noscript><style>.loader{display:none}</style></noscript>
+
+  <!-- Loader: engine start -->
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <svg class="tach" viewBox="0 0 240 160" aria-hidden="true">
+        <path d="M30 140 A90 90 0 1 1 210 140" class="tach-arc"/>
+        <path d="M184.9 63.3 A90 90 0 0 1 210 140" class="tach-red"/>
+        <g id="tach-ticks"></g>
+        <g id="needle" transform="rotate(-135 120 140)">
+          <path d="M117 140 L120 60 L123 140 Z" fill="#F2B705"/>
+        </g>
+        <circle cx="120" cy="140" r="9" fill="#F2F3F2"/>
+      </svg>
+      <div class="rpm"><strong id="rpm">0</strong> rpm</div>
+
+      <svg class="engine" id="engine" viewBox="0 0 260 150" aria-hidden="true">
+        <g id="puffs"></g>
+        <rect x="214" y="48" width="34" height="12" rx="4" fill="#56616A"/>
+        <rect x="30" y="34" width="184" height="18" rx="5" fill="#8E979C"/>
+        <rect x="24" y="52" width="196" height="70" rx="8" fill="#B9BEC2"/>
+        <g id="pistons"></g>
+        <rect x="24" y="112" width="196" height="26" rx="8" fill="#56616A"/>
+        <circle cx="122" cy="125" r="8" fill="#3B454C"/>
+      </svg>
+      <p class="loader-text" id="loader-text">Ignition on</p>
+      <button type="button" class="loader-skip" id="loader-skip">Skip intro</button>
+    </div>
+  </div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top">Srija Gummadi</a>
+    <nav aria-label="Sections">
+      <a href="#what">What I do</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#loop">Tune a loop</a>
+      <a href="#skills">Toolbox</a>
+      <a href="#visitors">Visitors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO: animated robot work cell -->
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <p class="hello">Hi, I’m</p>
+        <h1><span>Srija</span> <span>Gummadi</span></h1>
+        <p class="role">Controls engineer, Columbus, USA</p>
+        <p class="lede">I program the PLCs, robots and vision systems on production lines, and build the SCADA screens that show what the line is doing.</p>
+      </div>
+
+      <figure class="cell bezel" aria-labelledby="cell-cap">
+        <div class="screen-bar"><span class="screen-name">Line 1, robot cell</span><span class="screen-mode">Mode <b>Auto</b></span><span class="screen-clock" data-clock></span></div>
+        <svg id="cell" viewBox="0 0 800 400" role="img" aria-label="Animated cartoon of a robot work cell: boxes ride a conveyor, a camera inspects each one, and a yellow robot arm stacks good boxes on a pallet and drops rejected ones into a bin.">
+          <defs>
+            <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <rect width="4" height="8" fill="#F2B705"/><rect x="4" width="4" height="8" fill="#1D252C"/>
+            </pattern>
+            <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FB2E8" stop-opacity=".8"/>
+              <stop offset="1" stop-color="#7FB2E8" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- floor -->
+          <rect x="0" y="372" width="800" height="28" fill="#CDD1D2"/>
+          <rect x="0" y="372" width="800" height="5" fill="url(#hatch)" opacity=".85"/>
+
+          <!-- camera gantry -->
+          <g class="gantry">
+            <rect x="262" y="96" width="8" height="196" fill="#8E979C"/>
+            <rect x="330" y="96" width="8" height="196" fill="#8E979C"/>
+            <rect x="256" y="90" width="88" height="12" rx="3" fill="#6E777C"/>
+            <polygon id="beam" points="290,196 310,196 340,268 260,268" fill="url(#beam)" opacity="0"/>
+            <rect x="282" y="150" width="36" height="40" rx="6" fill="#2563A8"/>
+            <rect x="290" y="186" width="20" height="12" rx="2" fill="#1D252C"/>
+            <circle cx="300" cy="166" r="9" fill="#F2F3F2"/>
+            <circle id="cam-eye" cx="300" cy="166" r="4.5" fill="#1D252C"/>
+            <rect x="296" y="102" width="8" height="48" fill="#6E777C"/>
+          </g>
+
+          <!-- conveyor -->
+          <g class="conveyor">
+            <rect x="14" y="300" width="462" height="16" rx="8" fill="#3B454C"/>
+            <line id="belt" x1="22" y1="302" x2="468" y2="302" stroke="#8E979C" stroke-width="3" stroke-dasharray="10 12"/>
+            <g fill="#8E979C">
+              <circle cx="24" cy="308" r="5"/><circle cx="466" cy="308" r="5"/>
+            </g>
+            <rect x="40" y="316" width="10" height="56" fill="#6E777C"/>
+            <rect x="240" y="316" width="10" height="56" fill="#6E777C"/>
+            <rect x="436" y="316" width="10" height="56" fill="#6E777C"/>
+            <rect x="464" y="276" width="8" height="24" rx="2" fill="#C8312B"/>
+          </g>
+
+          <!-- reject bin -->
+          <g class="bin">
+            <path d="M482 318 L536 318 L530 372 L488 372 Z" fill="#7A858B"/>
+            <rect x="478" y="312" width="62" height="8" rx="3" fill="#5A646A"/>
+            <text x="509" y="352" text-anchor="middle" class="svg-small" fill="#F2F3F2">Reject</text>
+          </g>
+
+          <!-- pallet -->
+          <g class="pallet">
+            <rect x="690" y="352" width="70" height="8" fill="#9C7B4C"/>
+            <rect x="690" y="364" width="70" height="8" fill="#9C7B4C"/>
+            <rect x="694" y="358" width="10" height="8" fill="#7D6039"/>
+            <rect x="720" y="358" width="10" height="8" fill="#7D6039"/>
+            <rect x="746" y="358" width="10" height="8" fill="#7D6039"/>
+          </g>
+
+          <!-- boxes live here -->
+          <g id="boxes"></g>
+
+          <!-- robot -->
+          <g class="robot">
+            <path d="M548 372 L612 372 L604 330 L556 330 Z" fill="#1D252C"/>
+            <rect x="560" y="246" width="40" height="88" rx="8" fill="#F2B705"/>
+            <circle cx="580" cy="300" r="4" id="robot-led" fill="#2E9E5B"/>
+            <g id="upper" transform="translate(580,240)">
+              <rect x="-16" y="-16" width="162" height="32" rx="16" fill="#F2B705" stroke="#C99600" stroke-width="2"/>
+              <circle r="11" fill="#1D252C"/>
+              <circle r="4" fill="#F2B705"/>
+              <g id="fore" transform="translate(130,0)">
+                <rect x="-12" y="-12" width="149" height="24" rx="12" fill="#F2B705" stroke="#C99600" stroke-width="2"/>
+                <circle r="9" fill="#1D252C"/>
+                <circle r="3" fill="#F2B705"/>
+                <g id="wrist" transform="translate(125,0)">
+                  <!-- +x points toward the floor once oriented -->
+                  <rect x="-8" y="-11" width="16" height="22" rx="5" fill="#1D252C"/>
+                  <rect x="8" y="-3" width="10" height="6" fill="#5A646A"/>
+                  <path d="M18 -11 L28 -15 L28 15 L18 11 Z" id="cup" fill="#3B454C"/>
+                  <circle cx="0" cy="0" r="3" fill="#7FB2E8"/>
+                </g>
+              </g>
+            </g>
+          </g>
+
+          <!-- tower light -->
+          <g class="tower">
+            <rect x="778" y="200" width="6" height="172" fill="#8E979C"/>
+            <rect x="770" y="132" width="22" height="22" rx="3" id="lamp-red" fill="#5E2B29"/>
+            <rect x="770" y="154" width="22" height="22" rx="3" id="lamp-amber" fill="#5E4F1F"/>
+            <rect x="770" y="176" width="22" height="22" rx="3" id="lamp-green" fill="#1F4A31"/>
+            <rect x="768" y="126" width="26" height="6" rx="2" fill="#5A646A"/>
+          </g>
+        </svg>
+
+        <figcaption id="cell-cap" class="hmi">
+          <div class="hmi-tags" aria-live="off">
+            <div><span>Line</span><strong id="tag-status">Running</strong></div>
+            <div><span>Good parts</span><strong id="tag-good">0</strong></div>
+            <div><span>Rejected</span><strong id="tag-bad">0</strong></div>
+            <div><span>Last cycle</span><strong id="tag-cycle">–</strong></div>
+          </div>
+          <button class="pushbutton" id="line-toggle" type="button" aria-pressed="true">Stop the line</button>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- WHAT I DO as a control loop -->
+    <section class="section" id="what" aria-labelledby="what-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 10</span><h2 id="what-h">What I do</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>Every automated line runs the same loop. I work on all four stages of it, on real production equipment.</p>
+      </div>
+      <ol class="cloop">
+        <li class="node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Sense</h3><span class="fp-tag">Stage 1</span></div>
+          <svg viewBox="0 0 80 60" aria-hidden="true"><rect x="22" y="10" width="36" height="28" rx="6" fill="#2563A8"/><circle cx="40" cy="24" r="8" fill="#F2F3F2"/><circle cx="40" cy="24" r="4" fill="#1D252C"/><path d="M30 38 L20 56 M50 38 L60 56" stroke="#7FB2E8" stroke-width="3" stroke-dasharray="4 4"/></svg>
+          <p>Cognex and Keyence cameras check every part, and Balluff IO-Link sensors track vibration, temperature, humidity and air pressure.</p>
+          <ul class="chips" aria-label="Tools"><li>Cognex</li><li>Keyence</li><li>iRVision</li><li>Balluff IO-Link</li></ul>
+        </li>
+        <li class="node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Decide</h3><span class="fp-tag">Stage 2</span></div>
+          <svg viewBox="0 0 80 60" aria-hidden="true"><path d="M8 8 V52 M72 8 V52" stroke="#1D252C" stroke-width="4"/><path d="M8 22 H26 M36 22 H54 M64 22 H72" stroke="#1D252C" stroke-width="3"/><path d="M26 12 V32 M36 12 V32" stroke="#1D252C" stroke-width="4"/><circle cx="59" cy="22" r="6" fill="none" stroke="#1D252C" stroke-width="3"/><path d="M8 42 H72" stroke="#A9B1B5" stroke-width="3"/></svg>
+          <p>Allen-Bradley and Siemens PLC logic decides what runs next. Safety PLCs and poka-yoke error proofing decide when it stops.</p>
+          <ul class="chips" aria-label="Tools"><li>Studio 5000</li><li>RSLogix</li><li>Siemens</li><li>Safety PLC</li></ul>
+        </li>
+        <li class="node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Act</h3><span class="fp-tag">Stage 3</span></div>
+          <svg viewBox="0 0 80 60" aria-hidden="true"><path d="M20 56 V40 L40 18 L62 26" stroke="#F2B705" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="40" r="4" fill="#1D252C"/><circle cx="40" cy="18" r="4" fill="#1D252C"/><path d="M62 26 v10 M56 36 h12" stroke="#1D252C" stroke-width="3"/><rect x="12" y="54" width="18" height="4" fill="#1D252C"/></svg>
+          <p>FANUC and Universal Robots, VFD-driven motors and pneumatics do the work. I integrate them and tune the cycle time.</p>
+          <ul class="chips" aria-label="Tools"><li>FANUC</li><li>UR</li><li>VFDs</li><li>Pneumatics</li></ul>
+        </li>
+        <li class="node">
+          <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Monitor</h3><span class="fp-tag">Stage 4</span></div>
+          <svg viewBox="0 0 80 60" aria-hidden="true"><rect x="8" y="8" width="64" height="40" rx="4" fill="#D3D7D8" stroke="#1D252C" stroke-width="3"/><path d="M16 38 L28 26 L38 32 L50 18 L64 24" stroke="#2E9E5B" stroke-width="3" fill="none"/><path d="M32 48 L28 56 H52 L48 48" fill="#1D252C"/></svg>
+          <p>Ignition and FactoryTalk View screens for alarms and diagnostics, linked to MES for traceability and uptime tracking.</p>
+          <ul class="chips" aria-label="Tools"><li>Ignition 8.1</li><li>FactoryTalk View</li><li>MES</li><li>EtherNet/IP</li></ul>
+        </li>
+      </ol>
+      <p class="feedback"><span aria-hidden="true"></span>Then I close the loop: I/O checkout, commissioning, startup, and root-cause fixes that keep uptime high.</p>
+    </section>
+
+    <!-- EXPERIENCE as ladder logic -->
+    <section class="section" id="experience" aria-labelledby="exp-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 20</span><h2 id="exp-h">Where I’ve worked</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>Written as ladder logic, the language I use most at work. Newest at the top.</p>
+      </div>
+      <ol class="ladder">
+        <li class="rung">
+          <span class="rung-no">000</span>
+          <div class="rung-line">
+            <span class="xic" aria-hidden="true"></span>
+            <span class="tag">Magna Seating</span>
+            <span class="wire" aria-hidden="true"></span>
+            <span class="coil">Controls engineer</span>
+          </div>
+          <div class="rung-body">
+            <p class="when">2024 to now</p>
+            <p>I keep automated seating lines running: PLC logic, FANUC robots, vision checks and safety systems, plus the SCADA screens operators use and the sensors that flag a machine before it fails.</p>
+            <ul class="chips" aria-label="Tools"><li>Allen-Bradley</li><li>FANUC</li><li>Cognex</li><li>Keyence</li><li>Ignition</li><li>FactoryTalk View</li><li>Balluff IIoT</li></ul>
+          </div>
+        </li>
+        <li class="rung">
+          <span class="rung-no">001</span>
+          <div class="rung-line">
+            <span class="xic" aria-hidden="true"></span>
+            <span class="tag">BCV Systems</span>
+            <span class="wire" aria-hidden="true"></span>
+            <span class="coil">Controls engineer</span>
+          </div>
+          <div class="rung-body">
+            <p class="when">2024</p>
+            <p>I programmed and started up controls for Turblex centrifugal blowers, and tied them into customer DCS and SCADA systems on site.</p>
+            <ul class="chips" aria-label="Tools"><li>Allen-Bradley</li><li>Modicon</li><li>Siemens</li><li>GE</li><li>DCS/SCADA</li></ul>
+          </div>
+        </li>
+        <li class="rung">
+          <span class="rung-no">002</span>
+          <div class="rung-line">
+            <span class="xic" aria-hidden="true"></span>
+            <span class="tag">Michigan Tech</span>
+            <span class="wire" aria-hidden="true"></span>
+            <span class="coil">Mechatronics, M.S.</span>
+          </div>
+          <div class="rung-body">
+            <p class="when">2022 to 2024</p>
+            <p>I researched human-robot collaboration, helped teach the Advanced PLC and fluids labs, and published a robot vision cell at ICCAE 2024.</p>
+            <ul class="chips" aria-label="Tools"><li>Franka Emika</li><li>UR10e</li><li>ROS</li><li>Sensor fusion</li><li>RSLogix</li></ul>
+          </div>
+        </li>
+        <li class="rung">
+          <span class="rung-no">003</span>
+          <div class="rung-line">
+            <span class="xic" aria-hidden="true"></span>
+            <span class="tag">Where it started</span>
+            <span class="wire" aria-hidden="true"></span>
+            <span class="coil">Aerospace engineering</span>
+          </div>
+          <div class="rung-body">
+            <p class="when">2018 to 2022</p>
+            <p>I started in aerospace: a crew re-entry vehicle design project, and published research on piezo sensors for structural health monitoring.</p>
+            <ul class="chips" aria-label="Tools"><li>CATIA</li><li>SolidWorks</li><li>Piezo sensors</li></ul>
+            <svg class="capsule" viewBox="0 0 120 70" aria-hidden="true">
+              <path d="M30 60 Q60 2 90 60 Z" fill="#F2F3F2" stroke="#1D252C" stroke-width="2.5"/>
+              <path d="M24 60 Q60 72 96 60 Z" fill="#F2B705" stroke="#1D252C" stroke-width="2.5"/>
+              <circle cx="60" cy="40" r="7" fill="#7FB2E8" stroke="#1D252C" stroke-width="2.5"/>
+              <path d="M16 66 q-8 -3 -14 0 M104 66 q8 -3 14 0" stroke="#C8312B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- PROJECTS as drawing sheets -->
+    <section class="section" id="projects" aria-labelledby="proj-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 30</span><h2 id="proj-h">Things I’ve built</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>Each project gets its own drawing sheet.</p>
+      </div>
+
+      <div class="sheets">
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <rect x="10" y="78" width="200" height="12" rx="6" class="ink-fill"/>
+            <rect x="40" y="58" width="22" height="20" class="box"/><rect x="100" y="58" width="22" height="20" class="box blue"/>
+            <path d="M150 84 L190 54" class="ink" stroke-width="5" stroke-linecap="round"/>
+            <rect x="160" y="20" width="44" height="28" rx="3" class="panel"/>
+            <path d="M166 40 l8 -10 l8 6 l8 -12 l8 8" class="ink"/>
+          </svg>
+          <h3>Material sorting with SCADA</h3>
+          <p>Parts get sorted automatically, and operators watch the whole line on one Ignition screen.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2024</dd></div><div><dt>Tools</dt><dd>Ignition, PLC, Python</dd></div></dl>
+        </article>
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <path d="M30 100 L70 60 L170 60 L130 100 Z" class="panel"/>
+            <path d="M50 80 L150 80 M100 60 L80 100 M135 60 L115 100 M65 60 L45 100" class="ink" stroke-width="1.5"/>
+            <path d="M40 92 q30 -12 60 -2 q30 10 50 -6" class="snow"/>
+            <g transform="translate(150 22)"><rect x="-14" y="-4" width="28" height="8" rx="4" class="ink-fill"/>
+              <path d="M-26 -8 h16 M10 -8 h16" class="ink" stroke-width="3" stroke-linecap="round"/>
+              <path d="M0 4 L-18 40 M0 4 L18 40" class="beam-line"/></g>
+          </svg>
+          <h3>Finding solar panels under snow</h3>
+          <p>A YOLOv8 model that spots snow-covered solar panels in drone photos.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2024</dd></div><div><dt>Tools</dt><dd>Python, YOLOv8</dd></div></dl>
+        </article>
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <rect x="20" y="40" width="80" height="44" rx="6" class="panel"/>
+            <circle cx="60" cy="62" r="16" class="ink-fill"/>
+            <path d="M48 74 L72 50" stroke="#F2B705" stroke-width="4" stroke-linecap="round"/>
+            <path d="M100 62 h30" class="ink" stroke-width="3"/>
+            <rect x="130" y="42" width="70" height="40" rx="4" class="panel"/>
+            <text x="165" y="66" text-anchor="middle" class="svg-small">ECM</text>
+            <path d="M140 96 h50" class="dash"/><text x="165" y="112" text-anchor="middle" class="svg-small">CAN</text>
+          </svg>
+          <h3>Drive-by-wire throttle</h3>
+          <p>An embedded throttle controller that two engine computers talk to over CAN.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2023</dd></div><div><dt>Tools</dt><dd>Simulink, Stateflow, CAN</dd></div></dl>
+        </article>
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <rect x="10" y="88" width="150" height="10" rx="5" class="ink-fill"/>
+            <rect x="80" y="18" width="22" height="20" rx="4" fill="#2563A8"/>
+            <path d="M84 40 L70 86 M98 40 L112 86" class="beam-line"/>
+            <rect x="80" y="68" width="22" height="20" class="box"/>
+            <path d="M190 98 V60 L160 40 L140 58" class="arm"/>
+            <circle cx="190" cy="60" r="4" class="ink-fill"/><circle cx="160" cy="40" r="4" class="ink-fill"/>
+          </svg>
+          <h3>Robot vision cell</h3>
+          <p>A camera identifies parts on a conveyor and a robot sorts them, all run by one PLC. This one became a paper.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2023</dd></div><div><dt>Tools</dt><dd>PLC, HMI, robot vision</dd></div></dl>
+        </article>
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <path d="M110 10 V36" class="ink" stroke-width="10" stroke-linecap="round"/>
+            <rect x="70" y="36" width="80" height="14" rx="4" class="ink-fill"/>
+            <path d="M80 50 v14 M140 50 v14" class="ink" stroke-width="4"/>
+            <path d="M70 64 h20 l-4 10 h-12 Z M130 64 h20 l-4 10 h-12 Z" fill="#3B454C"/>
+            <rect x="66" y="76" width="88" height="30" class="box"/>
+          </svg>
+          <h3>Suction gripper for a FANUC robot</h3>
+          <p>I designed the gripper, programmed the pick-and-place, and cut the cycle time.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2022</dd></div><div><dt>Tools</dt><dd>FANUC, CAD</dd></div></dl>
+        </article>
+        <article class="sheet">
+          <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
+            <rect x="30" y="34" width="56" height="56" rx="6" class="panel"/>
+            <circle cx="58" cy="62" r="14" class="ink-fill"/>
+            <path d="M58 62 L58 50" stroke="#F2B705" stroke-width="3" stroke-linecap="round"/>
+            <path d="M86 62 h40" class="ink" stroke-width="4"/>
+            <rect x="150" y="48" width="24" height="28" rx="3" fill="#2563A8"/>
+            <path d="M146 54 q-8 8 0 16 M138 50 q-14 12 0 24" class="ink" fill="none"/>
+          </svg>
+          <h3>Stepper motor that follows sensors</h3>
+          <p>A motor that sets its speed and position in real time from ultrasonic, IR and light sensors.</p>
+          <dl class="title-block"><div><dt>Year</dt><dd>2022</dd></div><div><dt>Tools</dt><dd>LabVIEW</dd></div></dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- PID playground -->
+    <section class="section" id="loop" aria-labelledby="loop-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 40</span><h2 id="loop-h">Tune a loop</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>A lot of controls work comes down to making a process value follow a setpoint. Drag the gains and watch the step response of a simple mass-spring-damper.</p>
+      </div>
+
+      <div class="loop">
+        <div class="loop-plot">
+          <canvas id="pid" width="760" height="360" aria-label="Step response plot. Setpoint is a dashed line at 1.0; the response curve updates as you change the gains."></canvas>
+          <div class="loop-readout" aria-live="polite">
+            <div><span>Overshoot</span><strong id="r-os">–</strong></div>
+            <div><span>Settling time</span><strong id="r-ts">–</strong></div>
+            <div><span>Error at 10 s</span><strong id="r-ess">–</strong></div>
+          </div>
+        </div>
+        <div class="loop-controls">
+          <label>Proportional, Kp <output id="o-kp">2.0</output>
+            <input type="range" id="kp" min="0" max="12" step="0.1" value="2">
+          </label>
+          <label>Integral, Ki <output id="o-ki">0.5</output>
+            <input type="range" id="ki" min="0" max="6" step="0.05" value="0.5">
+          </label>
+          <label>Derivative, Kd <output id="o-kd">0.6</output>
+            <input type="range" id="kd" min="0" max="5" step="0.05" value="0.6">
+          </label>
+          <div class="presets" role="group" aria-label="Presets">
+            <button type="button" data-p="0.6,0,0">Sluggish</button>
+            <button type="button" data-p="9,3,0">Ringing</button>
+            <button type="button" data-p="4.2,1.6,2.2">Tuned</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLBOX as a factory floor plan -->
+    <section class="section" id="skills" aria-labelledby="skills-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 50</span><h2 id="skills-h">Toolbox</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>A plant I’d be at home in, seen from above. Each highlighted zone is an area I work in. Pick one to see the tools I use there.</p>
+      </div>
+
+      <div class="bezel plant-screen">
+        <div class="screen-bar"><span class="screen-name">Plant overview</span><span class="screen-mode">Zones <b>8</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="plant-body">
+          <div class="plant-map">
+            <svg id="plant" viewBox="0 0 960 560" role="img" aria-label="Top-view floor plan of a factory. Zones: control room, electrical room, engineering office, robotics lab, infeed with IIoT sensors, robot cell, safety station and vision inspection. Use the zone buttons to explore each one.">
+              <defs>
+                <pattern id="floorgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#DADEDF" stroke-width="1"/></pattern>
+                <clipPath id="belt-clip"><rect x="30" y="470" width="900" height="26"/></clipPath>
+              </defs>
+
+              <!-- floor and walls -->
+              <rect x="10" y="10" width="940" height="540" fill="#EEF0EF"/>
+              <rect x="10" y="10" width="940" height="540" fill="url(#floorgrid)"/>
+              <path d="M10 226 H110 M150 226 H340 M380 226 H560 M600 226 H790 M830 226 H950 M250 10 V226 M480 10 V226 M700 10 V226" stroke="#1D252C" stroke-width="6" fill="none"/>
+              <path d="M110 226 A40 40 0 0 1 150 186 M340 226 A40 40 0 0 1 380 186 M560 226 A40 40 0 0 1 600 186 M790 226 A40 40 0 0 1 830 186" stroke="#8E979C" stroke-width="1.5" fill="none"/>
+              <rect x="10" y="10" width="940" height="540" fill="none" stroke="#1D252C" stroke-width="8"/>
+
+              <!-- aisle floor tape -->
+              <path d="M14 240 H946 M14 302 H946" stroke="#F2B705" stroke-width="4" stroke-dasharray="18 10"/>
+              <path d="M200 271 l14 -8 v16 Z M480 271 l14 -8 v16 Z M760 271 l14 -8 v16 Z" fill="#C9CED0"/>
+
+              <!-- control room -->
+              <g class="decor">
+                <rect x="36" y="24" width="190" height="10" rx="2" fill="#2563A8"/>
+                <rect x="40" y="96" width="70" height="30" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="140" y="96" width="70" height="30" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="48" y="98" width="22" height="5" fill="#1D252C"/><rect x="78" y="98" width="22" height="5" fill="#1D252C"/>
+                <rect x="148" y="98" width="22" height="5" fill="#1D252C"/><rect x="178" y="98" width="22" height="5" fill="#1D252C"/>
+                <g fill="#56616A"><ellipse cx="75" cy="142" rx="13" ry="7"/><ellipse cx="175" cy="142" rx="13" ry="7"/></g>
+                <g fill="#E0C48F"><circle cx="75" cy="142" r="6"/><circle cx="175" cy="142" r="6"/></g>
+              </g>
+
+              <!-- electrical room: PLC panels -->
+              <g class="decor">
+                <g fill="#B9BEC2" stroke="#1D252C" stroke-width="2">
+                  <rect x="266" y="22" width="36" height="46"/><rect x="306" y="22" width="36" height="46"/><rect x="346" y="22" width="36" height="46"/><rect x="386" y="22" width="36" height="46"/><rect x="426" y="22" width="36" height="46"/>
+                </g>
+                <g fill="#3FD47C"><circle cx="276" cy="32" r="3"/><circle cx="316" cy="32" r="3"/><circle cx="356" cy="32" r="3"/><circle cx="396" cy="32" r="3"/><circle cx="436" cy="32" r="3"/></g>
+                <circle cx="446" cy="32" r="3" fill="#F2B705"/>
+                <path d="M266 80 H462" stroke="#8E979C" stroke-width="6"/>
+                <rect x="300" y="120" width="90" height="34" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="312" y="124" width="30" height="6" fill="#1D252C"/>
+                <ellipse cx="345" cy="170" rx="13" ry="7" fill="#56616A"/><circle cx="345" cy="170" r="6" fill="#E0C48F"/>
+              </g>
+
+              <!-- engineering office -->
+              <g class="decor">
+                <rect x="500" y="40" width="90" height="56" rx="3" fill="#F7F8F7" stroke="#56616A"/>
+                <path d="M510 52 H560 M510 62 H575 M510 72 H550 M565 52 V86" stroke="#2563A8" stroke-width="1.5"/>
+                <rect x="610" y="44" width="70" height="30" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="618" y="46" width="24" height="5" fill="#1D252C"/><rect x="648" y="46" width="24" height="5" fill="#1D252C"/>
+                <rect x="610" y="120" width="70" height="30" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="630" y="122" width="30" height="5" fill="#1D252C"/>
+                <ellipse cx="645" cy="90" rx="13" ry="7" fill="#56616A"/><circle cx="645" cy="90" r="6" fill="#E0C48F"/>
+              </g>
+
+              <!-- robotics lab -->
+              <g class="decor">
+                <rect x="770" y="70" width="110" height="80" rx="4" fill="#C9CED0" stroke="#56616A"/>
+                <circle cx="825" cy="110" r="14" fill="#8E979C" stroke="#1D252C" stroke-width="2"/>
+                <g class="lab-arm"><rect x="825" y="104" width="52" height="12" rx="6" fill="#7FB2E8" stroke="#2563A8" stroke-width="2"/></g>
+                <g fill="#2563A8"><rect x="716" y="22" width="12" height="12"/><rect x="928" y="22" width="12" height="12" transform="translate(-6 0)"/><rect x="716" y="198" width="12" height="12"/><rect x="922" y="198" width="12" height="12"/></g>
+                <path d="M728 34 L800 90 M922 34 L850 90 M728 198 L800 130 M922 198 L850 130" stroke="#7FB2E8" stroke-width="1.5" stroke-dasharray="4 4"/>
+              </g>
+
+              <!-- conveyor with moving parts -->
+              <rect x="30" y="470" width="900" height="26" rx="4" fill="#3B454C"/>
+              <line class="plant-belt" x1="34" y1="483" x2="926" y2="483" stroke="#8E979C" stroke-width="3" stroke-dasharray="8 10"/>
+              <g clip-path="url(#belt-clip)">
+                <g class="parts"><rect x="-230" y="474" width="22" height="18" rx="2" fill="#C9A26B" stroke="#8A6A3C"/><rect x="0" y="474" width="22" height="18" rx="2" fill="#C9A26B" stroke="#8A6A3C"/><rect x="230" y="474" width="22" height="18" rx="2" fill="#C9A26B" stroke="#8A6A3C"/><rect x="460" y="474" width="22" height="18" rx="2" fill="#C9A26B" stroke="#8A6A3C"/><rect x="690" y="474" width="22" height="18" rx="2" fill="#C9A26B" stroke="#8A6A3C"/></g>
+              </g>
+
+              <!-- infeed and IIoT -->
+              <g class="decor">
+                <rect x="30" y="336" width="60" height="70" rx="3" fill="#B9BEC2" stroke="#1D252C" stroke-width="2"/>
+                <path d="M30 406 L60 470 L90 406" fill="#C9CED0" stroke="#56616A"/>
+                <rect x="36" y="500" width="34" height="26" rx="3" fill="#56616A"/>
+                <rect x="140" y="346" width="58" height="30" rx="3" fill="#1D252C"/>
+                <g fill="#F2B705"><circle cx="150" cy="370" r="3"/><circle cx="162" cy="370" r="3"/><circle cx="174" cy="370" r="3"/><circle cx="186" cy="370" r="3"/></g>
+                <path d="M150 376 C150 420 110 440 110 466 M162 376 C162 430 160 440 160 466 M174 376 C176 420 210 440 210 466 M186 376 C190 420 60 470 58 500" stroke="#56616A" stroke-width="1.5" fill="none"/>
+                <g fill="#F2B705" stroke="#1D252C" stroke-width="1.5"><circle cx="110" cy="466" r="5"/><circle cx="160" cy="466" r="5"/><circle cx="210" cy="466" r="5"/><circle cx="58" cy="504" r="5"/></g>
+                <path class="vib" d="M70 512 q4 -6 8 0 t8 0" stroke="#2563A8" stroke-width="2" fill="none"/>
+              </g>
+
+              <!-- robot cell -->
+              <g class="decor">
+                <path d="M482 330 H272 V460 H482" stroke="#56616A" stroke-width="4" fill="none"/>
+                <path d="M272 330 V460 M312 330 v4 M352 330 v4 M392 330 v4 M432 330 v4" stroke="#1D252C" stroke-width="2"/>
+                <circle cx="372" cy="410" r="86" fill="none" stroke="#C99600" stroke-width="1.5" stroke-dasharray="6 6"/>
+                <rect x="410" y="344" width="50" height="34" rx="3" fill="#C9CED0" stroke="#56616A"/>
+                <g class="plant-robot">
+                  <rect x="366" y="402" width="84" height="16" rx="8" fill="#F2B705" stroke="#C99600" stroke-width="2"/>
+                  <circle cx="446" cy="410" r="7" fill="#3B454C"/>
+                </g>
+                <circle cx="372" cy="410" r="20" fill="#F2B705" stroke="#C99600" stroke-width="2"/>
+                <circle cx="372" cy="410" r="7" fill="#1D252C"/>
+              </g>
+
+              <!-- safety station -->
+              <g class="decor">
+                <path d="M520 456 L520 386 A70 70 0 0 1 590 456 Z" fill="#F2B705" opacity=".22"/>
+                <rect x="584" y="450" width="12" height="12" rx="2" fill="#1D252C"/>
+                <rect x="478" y="334" width="10" height="10" fill="#C8312B"/><rect x="478" y="446" width="10" height="10" fill="#C8312B"/>
+                <path class="beams" d="M483 344 V446" stroke="#C8312B" stroke-width="2" stroke-dasharray="3 6"/>
+                <g fill="#56616A"><ellipse cx="540" cy="404" rx="6" ry="10"/><ellipse cx="556" cy="404" rx="6" ry="10"/></g>
+              </g>
+
+              <!-- vision inspection -->
+              <g class="decor">
+                <circle cx="700" cy="483" r="26" fill="none" stroke="#7FB2E8" stroke-width="3" stroke-dasharray="4 4"/>
+                <rect x="690" y="474" width="20" height="18" rx="3" fill="#2563A8"/>
+                <rect x="676" y="460" width="48" height="6" fill="#56616A"/><rect x="676" y="500" width="48" height="6" fill="#56616A"/>
+                <rect x="744" y="438" width="34" height="28" rx="2" fill="#7A858B"/>
+                <rect x="636" y="346" width="58" height="34" rx="3" fill="#1D252C"/>
+                <rect x="642" y="352" width="46" height="22" fill="#2E9E5B" opacity=".8"/>
+                <path d="M650 364 l6 6 l12 -12" stroke="#fff" stroke-width="3" fill="none"/>
+              </g>
+
+              <!-- shipping (not a zone) -->
+              <g class="decor">
+                <rect x="820" y="350" width="50" height="50" fill="#9C7B4C"/>
+                <g fill="#C9A26B" stroke="#8A6A3C"><rect x="824" y="354" width="20" height="20"/><rect x="846" y="354" width="20" height="20"/><rect x="824" y="376" width="20" height="20"/></g>
+                <rect x="880" y="350" width="50" height="50" fill="#9C7B4C"/>
+                <text x="826" y="438" class="zl muted">Shipping</text>
+              </g>
+
+              <!-- EtherNet/IP network -->
+              <path class="net" d="M365 80 V312 M120 312 H706 M120 312 V346 M372 312 V330 M540 312 V330 M666 312 V346" fill="none"/>
+              <text x="386" y="294" class="net-label">EtherNet/IP</text>
+
+              <!-- AGV in the aisle -->
+              <g class="agv">
+                <rect x="0" y="257" width="46" height="28" rx="5" fill="#2563A8"/>
+                <rect x="6" y="263" width="34" height="16" rx="2" fill="#C9A26B" stroke="#8A6A3C"/>
+                <rect x="40" y="261" width="6" height="20" fill="#F2B705"/>
+              </g>
+
+              <!-- clickable zones -->
+              <g class="zone" data-zone="scada" tabindex="0" role="button" aria-label="Control room: SCADA and MES">
+                <rect class="zone-hit" x="16" y="16" width="230" height="206" rx="4"/>
+                <text x="26" y="206" class="zl">Control room</text>
+              </g>
+              <g class="zone" data-zone="controls" tabindex="0" role="button" aria-label="Electrical room: PLCs and drives">
+                <rect class="zone-hit" x="254" y="16" width="222" height="206" rx="4"/>
+                <text x="264" y="206" class="zl">Electrical room</text>
+              </g>
+              <g class="zone" data-zone="engineering" tabindex="0" role="button" aria-label="Engineering office: design and simulation">
+                <rect class="zone-hit" x="484" y="16" width="212" height="206" rx="4"/>
+                <text x="494" y="206" class="zl">Engineering office</text>
+              </g>
+              <g class="zone" data-zone="research" tabindex="0" role="button" aria-label="Robotics lab: research">
+                <rect class="zone-hit" x="704" y="16" width="242" height="206" rx="4"/>
+                <text x="714" y="206" class="zl">Robotics lab</text>
+              </g>
+              <g class="zone" data-zone="iiot" tabindex="0" role="button" aria-label="Infeed: IIoT sensors and networks">
+                <rect class="zone-hit" x="16" y="310" width="238" height="234" rx="4"/>
+                <text x="26" y="330" class="zl">Infeed and IIoT</text>
+              </g>
+              <g class="zone" data-zone="robots" tabindex="0" role="button" aria-label="Robot cell">
+                <rect class="zone-hit" x="262" y="310" width="214" height="154" rx="4"/>
+                <text x="282" y="352" class="zl">Robot cell</text>
+              </g>
+              <g class="zone" data-zone="safety" tabindex="0" role="button" aria-label="Safety station">
+                <rect class="zone-hit" x="476" y="310" width="124" height="154" rx="4"/>
+                <text x="498" y="376" class="zl">Safety</text>
+              </g>
+              <g class="zone" data-zone="vision" tabindex="0" role="button" aria-label="Vision inspection">
+                <rect class="zone-hit" x="606" y="310" width="190" height="234" rx="4"/>
+                <text x="616" y="402" class="zl">Vision inspection</text>
+              </g>
+            </svg>
+            <div class="zone-nav" role="group" aria-label="Zones">
+              <button type="button" data-zone="scada">Control room</button>
+              <button type="button" data-zone="controls">Electrical room</button>
+              <button type="button" data-zone="engineering">Engineering</button>
+              <button type="button" data-zone="research">Robotics lab</button>
+              <button type="button" data-zone="iiot">Infeed and IIoT</button>
+              <button type="button" data-zone="robots">Robot cell</button>
+              <button type="button" data-zone="safety">Safety</button>
+              <button type="button" data-zone="vision">Vision</button>
+            </div>
+          </div>
+
+          <aside class="zone-panel" aria-live="polite">
+            <div class="zp-head"><span class="fp-led on" aria-hidden="true"></span><h3 id="zp-title">Robot cell</h3></div>
+            <p id="zp-text"></p>
+            <ul class="chips" id="zp-skills" aria-label="Tools used in this zone"></ul>
+            <p class="zp-cert" id="zp-cert" hidden></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISITORS -->
+    <section class="section" id="visitors" aria-labelledby="vis-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 60</span><h2 id="vis-h">Visitors by country</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p id="vis-summary">Loading visitor counts…</p>
+      </div>
+      <table class="visitors" id="vis-table" hidden>
+        <thead><tr><th scope="col">Country</th><th scope="col">Visitors</th><th scope="col"><span class="sr-only">Share</span></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- CONTACT as an HMI contact station -->
+    <section class="section contact" id="contact" aria-labelledby="contact-h">
+      <div class="section-head">
+        <div class="station-plate"><span class="op">OP 70</span><h2 id="contact-h">Get in touch</h2><span class="st-status" aria-hidden="true"><i></i><em></em></span></div>
+        <p>This works like a machine start. Fill in the inputs, and when every permissive is on, the Send button arms.</p>
+      </div>
+
+      <div class="bezel station">
+        <div class="screen-bar"><span class="screen-name">Contact station</span><span class="screen-mode">Mode <b>Auto</b></span><span class="screen-clock" data-clock></span></div>
+        <div class="banner" id="banner" data-state="wait" role="status" aria-live="polite">
+          <span class="banner-lamp" aria-hidden="true"></span><span id="banner-text">Waiting for operator input: name, email and message.</span>
+        </div>
+
+        <form class="station-body" id="contact-form" novalidate>
+          <div class="station-inputs">
+            <label class="field">
+              <span class="field-top"><span class="field-name">Your name</span><span class="field-tag">Contact.Name</span></span>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </label>
+            <label class="field">
+              <span class="field-top"><span class="field-name">Your email</span><span class="field-tag">Contact.Email</span></span>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </label>
+
+            <fieldset class="selector">
+              <legend class="field-top"><span class="field-name">Topic</span><span class="field-tag">Contact.Topic</span></legend>
+              <div class="selector-body">
+                <button type="button" class="knob" id="knob" aria-label="Turn topic selector"><span class="knob-grip"></span></button>
+                <div class="selector-positions">
+                  <label><input type="radio" name="topic" value="Job opportunity" checked> Job opportunity</label>
+                  <label><input type="radio" name="topic" value="Project"> Project</label>
+                  <label><input type="radio" name="topic" value="Hello"> Just saying hi</label>
+                </div>
+              </div>
+            </fieldset>
+
+            <label class="field field-wide">
+              <span class="field-top"><span class="field-name">Message</span><span class="field-tag">Contact.Message</span></span>
+              <textarea id="f-msg" name="message" rows="5" required></textarea>
+            </label>
+          </div>
+
+          <div class="station-logic">
+            <p class="logic-title">Send permissives</p>
+            <div class="mini-rung" id="mini-rung" aria-hidden="true">
+              <span class="mr-rail"></span>
+              <span class="mr-wire"></span>
+              <span class="mr-contact" data-for="name"><i></i><b>Name_OK</b></span>
+              <span class="mr-wire"></span>
+              <span class="mr-contact" data-for="email"><i></i><b>Email_OK</b></span>
+              <span class="mr-wire"></span>
+              <span class="mr-contact" data-for="msg"><i></i><b>Msg_OK</b></span>
+              <span class="mr-wire"></span>
+              <span class="mr-coil"><i></i><b>Send_Ready</b></span>
+              <span class="mr-wire"></span>
+              <span class="mr-rail"></span>
+            </div>
+            <ul class="permissives">
+              <li data-for="name">Name entered</li>
+              <li data-for="email">Valid email address</li>
+              <li data-for="msg">Message of at least 10 characters</li>
+            </ul>
+
+            <div class="buttons">
+              <div class="pb-unit">
+                <button type="submit" class="pb pb-green" id="pb-send" aria-disabled="true"><span class="sr-only">Send message</span></button>
+                <span class="pb-label">Send</span>
+              </div>
+              <div class="pb-unit">
+                <button type="reset" class="pb pb-red" id="pb-clear"><span class="sr-only">Clear the form</span></button>
+                <span class="pb-label">Clear</span>
+              </div>
+              <div class="pb-unit">
+                <span class="pilot" id="pilot" aria-hidden="true"></span>
+                <span class="pb-label">Ready</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p class="direct">Sending opens your email app with the message filled in. You can also write to <a href="mailto:srijagummadi12@gmail.com">srijagummadi12@gmail.com</a> directly.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>End of line. Srija Gummadi, controls engineer, USA.</p>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

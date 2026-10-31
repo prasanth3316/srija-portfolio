@@ -1,0 +1,13 @@
+# Personal files: never commit
+Resume*.pdf
+*.pdf
+
+# Local tooling (not part of the website)
+.claude/
+.agents/
+skills-lock.json
+
+# Cloudflare / OS / editor clutter
+.wrangler/
+node_modules/
+.DS_Store
