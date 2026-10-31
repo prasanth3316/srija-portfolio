@@ -501,38 +501,53 @@ const engineStarted = new Promise((resolve) => {
 (function visitors() {
   const summary = document.getElementById("vis-summary");
   const table = document.getElementById("vis-table");
+  const svg = document.getElementById("vis-map");
+  const tip = document.getElementById("vis-tip");
+  const nEl = document.getElementById("vis-n");
   if (!summary) return;
 
   const names = typeof Intl.DisplayNames === "function" ? new Intl.DisplayNames(["en"], { type: "region" }) : null;
   const flag = (cc) => /^[A-Z]{2}$/.test(cc)
     ? String.fromCodePoint(...[...cc].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65)) : "🌐";
   const nameOf = (cc) => { try { return (names && names.of(cc)) || cc; } catch { return cc; } };
+  const plural = (n, one, many) => `${n.toLocaleString()} ${n === 1 ? one : many}`;
+  // sequential ramp (validated: one hue, monotone lightness, light end clears the map surface)
+  const RAMP = ["#86ACD9", "#5E8FCB", "#3B72B8", "#225A9A", "#163D69"];
+  const NONE = "#D3D7D8";
 
   // Count each browser once; later visits just read the totals.
   const KEY = "sg-visit-counted";
   const firstVisit = !localStorage.getItem(KEY);
 
-  fetch("/api/visit", { method: firstVisit ? "POST" : "GET", headers: { accept: "application/json" } })
+  const counts = fetch("/api/visit", { method: firstVisit ? "POST" : "GET", headers: { accept: "application/json" } })
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then((data) => {
-      if (firstVisit) localStorage.setItem(KEY, "1");
-      render(data);
-    })
+    .then((data) => { if (firstVisit) localStorage.setItem(KEY, "1"); renderTable(data); return data; })
     .catch(() => {
-      summary.textContent = "The visitor counter starts working once the site is deployed to Cloudflare Pages. See README.md for the two-minute setup.";
+      summary.textContent = "The visitor counter isn’t reachable right now, so the map shows no visits.";
+      return { total: 0, countries: {} };
     });
 
-  function render({ total = 0, countries = {}, you }) {
+  // load the map only when the station is getting close
+  const mapData = new Promise((resolve) => {
+    const go = () => fetch("world.json").then((r) => r.json()).then(resolve).catch(() => resolve(null));
+    if (!("IntersectionObserver" in window)) return go();
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); go(); } }, { rootMargin: "600px 0px" });
+    io.observe(svg);
+  });
+  Promise.all([mapData, counts]).then(([map, data]) => { if (map) drawMap(map, data); });
+
+  function renderTable({ total = 0, countries = {}, you }) {
     const rows = Object.entries(countries).sort((a, b) => b[1] - a[1]);
     const n = rows.length;
+    nEl.textContent = n;
     summary.textContent = total
-      ? `${total.toLocaleString()} ${total === 1 ? "visitor" : "visitors"} from ${n} ${n === 1 ? "country" : "countries"} so far.`
-      : "No visitors counted yet.";
+      ? `${plural(total, "visitor", "visitors")} from ${plural(n, "country", "countries")} so far. Hover or tap a country for its count.`
+      : "No visitors counted yet. You could be the first.";
     if (!n) return;
     const max = rows[0][1];
     const tbody = table.querySelector("tbody");
     tbody.innerHTML = "";
-    for (const [cc, count] of rows.slice(0, 25)) {
+    for (const [cc, count] of rows.slice(0, 12)) {
       const tr = document.createElement("tr");
       if (cc === you) tr.className = "you";
       const td1 = document.createElement("td");
@@ -545,7 +560,78 @@ const engineStarted = new Promise((resolve) => {
       tr.append(td1, td2, td3);
       tbody.append(tr);
     }
+    if (n > 12) {
+      const rest = rows.slice(12).reduce((a, r) => a + r[1], 0);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${plural(n - 12, "other country", "other countries")}</td><td>${rest.toLocaleString()}</td><td></td>`;
+      tbody.append(tr);
+    }
     table.hidden = false;
+  }
+
+  function drawMap(map, { countries = {}, you }) {
+    const max = Math.max(1, ...Object.values(countries));
+    // log buckets so one big country doesn't wash out everyone else
+    const bucket = (c) => Math.min(RAMP.length - 1, Math.floor((Math.log(c) / Math.log(max + 1)) * RAMP.length));
+    const color = (c) => (c ? RAMP[bucket(c)] : NONE);
+    const frag = document.createDocumentFragment();
+    const shapes = document.createElementNS(SVGNS, "g");
+    let order = 0;
+    for (const [cc, d] of map.c) {
+      const p = document.createElementNS(SVGNS, "path");
+      p.setAttribute("d", d);
+      const c = countries[cc] || 0;
+      p.setAttribute("class", "ctry" + (c ? " hit" : "") + (cc === you ? " you" : ""));
+      p.style.setProperty("--fill", color(c));
+      if (c) p.style.setProperty("--i", order++);
+      p.dataset.cc = cc;
+      if (c) { p.setAttribute("tabindex", "0"); p.setAttribute("aria-label", `${nameOf(cc)}: ${plural(c, "visitor", "visitors")}`); }
+      shapes.append(p);
+    }
+    frag.append(shapes);
+    // pins for visited countries too small (or missing) on a small map, plus "you"
+    const pins = document.createElementNS(SVGNS, "g");
+    for (const [cc, c] of Object.entries(countries)) {
+      const pt = map.pt[cc];
+      if (!pt || !(pt[2] || cc === you)) continue;
+      const g = document.createElementNS(SVGNS, "g");
+      g.setAttribute("class", "pin" + (cc === you ? " you" : ""));
+      g.setAttribute("transform", `translate(${pt[0]} ${pt[1]})`);
+      g.dataset.cc = cc;
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("aria-label", `${nameOf(cc)}: ${plural(c, "visitor", "visitors")}${cc === you ? " (you)" : ""}`);
+      g.innerHTML = (cc === you ? '<circle class="pulse" r="7"/>' : "") +
+        `<circle r="${cc === you ? 6 : 5}" style="fill:${cc === you ? "#F2B705" : color(c)}"/>`;
+      pins.append(g);
+    }
+    frag.append(pins);
+    svg.append(frag);
+
+    // tooltip: hover, focus, or tap
+    const wrap = svg.parentElement;
+    function show(cc, x, y) {
+      const c = countries[cc] || 0;
+      tip.innerHTML = "";
+      const strong = document.createElement("strong");
+      strong.textContent = `${flag(cc)} ${nameOf(cc)}`;
+      tip.append(strong, document.createTextNode(c ? plural(c, "visitor", "visitors") + (cc === you ? ", including you" : "") : "No visits yet"));
+      tip.hidden = false;
+      const r = wrap.getBoundingClientRect();
+      const left = Math.min(Math.max(x - r.left, 70), r.width - 70);
+      tip.style.left = left + "px";
+      tip.style.top = (y - r.top) + "px";
+    }
+    const hide = () => { tip.hidden = true; };
+    const target = (e) => e.target.closest("[data-cc]");
+    svg.addEventListener("pointermove", (e) => { const t = target(e); if (t && t.dataset.cc) show(t.dataset.cc, e.clientX, e.clientY); else hide(); });
+    svg.addEventListener("pointerleave", hide);
+    svg.addEventListener("focusin", (e) => {
+      const t = target(e); if (!t) return;
+      const b = t.getBoundingClientRect();
+      show(t.dataset.cc, b.left + b.width / 2, b.top + b.height / 2);
+    });
+    svg.addEventListener("focusout", hide);
+    requestAnimationFrame(() => svg.classList.add("drawn"));
   }
 })();
 
