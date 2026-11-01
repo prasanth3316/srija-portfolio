@@ -423,40 +423,69 @@ const engineStarted = new Promise((resolve) => {
   }
 
   let progress = reduceMotion ? 1 : 0;
+  // Size the canvas to its on-screen width at device resolution, so text and
+  // lines stay crisp and readable on phones and high-DPI screens.
+  let W = 760, H = 360;
+  function fit() {
+    const dpr = window.devicePixelRatio || 1;
+    W = Math.max(240, Math.round(canvas.clientWidth || 760));
+    H = Math.round(Math.max(210, Math.min(380, W * 0.5)));
+    canvas.style.height = H + "px";
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
   function draw(data) {
-    const W = canvas.width, H = canvas.height;
-    const pad = { l: 46, r: 14, t: 16, b: 34 };
+    const narrow = W < 460;
+    const pad = { l: 44, r: 14, t: 18, b: 40 };
     const yMax = 2;
     const X = (t) => pad.l + (t / T) * (W - pad.l - pad.r);
     const Y = (y) => pad.t + (1 - Math.max(-0.2, Math.min(yMax, y)) / yMax) * (H - pad.t - pad.b);
+    const mono = "'IBM Plex Mono', ui-monospace, monospace";
 
     ctx.clearRect(0, 0, W, H);
-    ctx.font = "500 15px Barlow, sans-serif";
+    ctx.font = `500 ${narrow ? 10 : 11}px ${mono}`;
     ctx.fillStyle = "#56616A";
-    ctx.strokeStyle = "#D6DADB";
     ctx.lineWidth = 1;
-    for (let y = 0; y <= yMax; y += 0.5) {
+    // grid: major lines every 0.5, minor every 0.25
+    for (let y = 0; y <= yMax + 1e-9; y += 0.25) {
+      const major = Math.abs(y * 2 - Math.round(y * 2)) < 1e-6;
+      ctx.strokeStyle = major ? "#D6DADB" : "#ECEEEF";
       ctx.beginPath(); ctx.moveTo(pad.l, Y(y)); ctx.lineTo(W - pad.r, Y(y)); ctx.stroke();
-      ctx.fillText(y.toFixed(1), 8, Y(y) + 5);
+      if (major) { ctx.textAlign = "right"; ctx.fillText(y.toFixed(1), pad.l - 8, Y(y) + 4); }
     }
-    for (let t = 0; t <= T; t += 2) {
-      ctx.fillText(t + " s", X(t) - 8, H - 10);
+    const tStep = narrow ? 2 : 1;
+    for (let t = 0; t <= T; t += tStep) {
+      ctx.strokeStyle = t % 2 ? "#ECEEEF" : "#D6DADB";
+      ctx.beginPath(); ctx.moveTo(X(t), pad.t); ctx.lineTo(X(t), H - pad.b); ctx.stroke();
+      ctx.textAlign = t === T ? "right" : "center";
+      ctx.fillText(String(t), X(t), H - pad.b + 15);
     }
+    // axes
+    ctx.strokeStyle = "#1D252C"; ctx.lineWidth = 1.25;
+    ctx.beginPath(); ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, H - pad.b); ctx.lineTo(W - pad.r, H - pad.b); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillStyle = "#1D252C";
+    ctx.fillText("time, t [s]", pad.l + (W - pad.l - pad.r) / 2, H - 6);
+    ctx.save(); ctx.translate(12, pad.t + (H - pad.t - pad.b) / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText("output, y(t)", 0, 0); ctx.restore();
     // ±2% band
     ctx.fillStyle = "rgba(46,158,91,.12)";
     ctx.fillRect(pad.l, Y(1.02), W - pad.l - pad.r, Y(0.98) - Y(1.02));
     // setpoint
-    ctx.setLineDash([7, 6]); ctx.strokeStyle = "#1D252C"; ctx.lineWidth = 2;
+    ctx.setLineDash([6, 5]); ctx.strokeStyle = "#1D252C"; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(X(0), Y(1)); ctx.lineTo(X(T), Y(1)); ctx.stroke();
     ctx.setLineDash([]);
     // response
-    ctx.strokeStyle = "#2563A8"; ctx.lineWidth = 3; ctx.lineJoin = "round";
+    ctx.strokeStyle = "#2563A8"; ctx.lineWidth = 2.25; ctx.lineJoin = "round";
     ctx.beginPath();
     const n = Math.max(1, Math.ceil(data.length * progress));
     data.slice(0, n).forEach(([t, y], i) => (i ? ctx.lineTo(X(t), Y(y)) : ctx.moveTo(X(t), Y(y))));
     ctx.stroke();
-    // labels
-    ctx.fillStyle = "#1D252C"; ctx.fillText("Setpoint", W - pad.r - 64, Y(1) - 8);
+    // legend
+    ctx.textAlign = "right"; ctx.fillStyle = "#1D252C";
+    ctx.fillText("setpoint r = 1.0 (±2% band)", W - pad.r - 4, Y(1) - 8);
+    ctx.textAlign = "left";
   }
 
   function render() {
@@ -494,8 +523,14 @@ const engineStarted = new Promise((resolve) => {
     }, { threshold: 0.4 });
     io.observe(canvas);
   }
-  // redraw once fonts load so canvas text uses Barlow
+  // redraw once fonts load so canvas text uses the web font
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(render);
+  // re-fit when the plot's width changes (rotation, window resize)
+  let lastW = 0;
+  const refit = () => { const w = Math.round(canvas.clientWidth); if (w && w !== lastW) { lastW = w; fit(); render(); } };
+  if ("ResizeObserver" in window) new ResizeObserver(refit).observe(canvas);
+  else window.addEventListener("resize", refit);
+  fit();
   render();
 })();
 
@@ -508,6 +543,7 @@ const engineStarted = new Promise((resolve) => {
   const svg = document.getElementById("vis-map");
   const tip = document.getElementById("vis-tip");
   const nEl = document.getElementById("vis-n");
+  const empty = document.getElementById("vis-empty");
   if (!summary) return;
 
   const names = typeof Intl.DisplayNames === "function" ? new Intl.DisplayNames(["en"], { type: "region" }) : null;
@@ -528,6 +564,7 @@ const engineStarted = new Promise((resolve) => {
     .then((data) => { if (firstVisit) localStorage.setItem(KEY, "1"); renderTable(data); return data; })
     .catch(() => {
       summary.textContent = "The visitor counter isn’t reachable right now, so the map shows no visits.";
+      if (empty) empty.textContent = "Visitor counts are unavailable right now. Please check back later.";
       return { total: 0, countries: {} };
     });
 
@@ -547,7 +584,8 @@ const engineStarted = new Promise((resolve) => {
     summary.textContent = total
       ? `${plural(total, "visitor", "visitors")} from ${plural(n, "country", "countries")} so far. Hover or tap a country for its count.`
       : "No visitors counted yet. You could be the first.";
-    if (!n) return;
+    if (!n) { if (empty) empty.textContent = "No visitors counted yet."; return; }
+    if (empty) empty.hidden = true;
     const max = rows[0][1];
     const tbody = table.querySelector("tbody");
     tbody.innerHTML = "";

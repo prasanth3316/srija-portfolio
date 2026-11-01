@@ -7,12 +7,22 @@
   <meta name="description" content="Srija Gummadi is a controls and mechatronics engineer working on PLCs, robotics, machine vision and SCADA.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <script>document.documentElement.classList.add("js")</script>
   <noscript><style>.loader{display:none}</style></noscript>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Shared symbols for the technical drawings -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#2563A8"/></marker>
+      <marker id="tick" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M2 7 L6 1" stroke="#56616A" stroke-width="1.2"/></marker>
+      <pattern id="sec-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#ECEFF0"/><path d="M0 0 V5" stroke="#8E979C" stroke-width="1"/></pattern>
+    </defs>
+  </svg>
 
   <!-- Loader: engine start -->
   <div class="loader" id="loader" role="status" aria-live="polite">
@@ -187,25 +197,52 @@
       <ol class="cloop">
         <li class="node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Sense</h3><span class="fp-tag">Stage 1</span></div>
-          <svg viewBox="0 0 80 60" aria-hidden="true"><rect x="22" y="10" width="36" height="28" rx="6" fill="#2563A8"/><circle cx="40" cy="24" r="8" fill="#F2F3F2"/><circle cx="40" cy="24" r="4" fill="#1D252C"/><path d="M30 38 L20 56 M50 38 L60 56" stroke="#7FB2E8" stroke-width="3" stroke-dasharray="4 4"/></svg>
+          <svg viewBox="0 0 80 60" aria-hidden="true">
+            <rect x="30" y="4" width="20" height="14" rx="1.5" class="d-body"/>
+            <rect x="35" y="18" width="10" height="4" class="d-ln"/>
+            <path d="M36 22 L24 44 M44 22 L56 44" class="d-bus"/>
+            <rect x="29" y="38" width="22" height="12" class="d-white"/>
+            <path d="M35 44 l3 3 l6 -6" class="d-ok"/>
+            <path d="M10 50 H70" class="d-ln"/>
+            <text x="54" y="13" class="d-lbl m">CAM</text>
+          </svg>
           <p>Cognex and Keyence cameras check every part, and Balluff IO-Link sensors track vibration, temperature, humidity and air pressure.</p>
           <ul class="chips" aria-label="Tools"><li>Cognex</li><li>Keyence</li><li>iRVision</li><li>Balluff IO-Link</li></ul>
         </li>
         <li class="node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Decide</h3><span class="fp-tag">Stage 2</span></div>
-          <svg viewBox="0 0 80 60" aria-hidden="true"><path d="M8 8 V52 M72 8 V52" stroke="#1D252C" stroke-width="4"/><path d="M8 22 H26 M36 22 H54 M64 22 H72" stroke="#1D252C" stroke-width="3"/><path d="M26 12 V32 M36 12 V32" stroke="#1D252C" stroke-width="4"/><circle cx="59" cy="22" r="6" fill="none" stroke="#1D252C" stroke-width="3"/><path d="M8 42 H72" stroke="#A9B1B5" stroke-width="3"/></svg>
+          <svg viewBox="0 0 80 60" aria-hidden="true">
+            <path d="M8 6 V54 M72 6 V54" class="d-ln" stroke-width="2.5"/>
+            <path d="M8 22 H22 M28 22 H40 M46 22 H56 M66 22 H72" class="d-live"/>
+            <path d="M22 14 V30 M28 14 V30 M40 14 V30 M46 14 V30" class="d-ln"/>
+            <path d="M58 14 Q54 22 58 30 M64 14 Q68 22 64 30" class="d-ln"/>
+            <path d="M8 44 H72" class="d-thin"/>
+            <path d="M22 37 V51 M28 37 V51 M30 51 L20 37" class="d-thin"/>
+          </svg>
           <p>Allen-Bradley and Siemens PLC logic decides what runs next. Safety PLCs and poka-yoke error proofing decide when it stops.</p>
           <ul class="chips" aria-label="Tools"><li>Studio 5000</li><li>RSLogix</li><li>Siemens</li><li>Safety PLC</li></ul>
         </li>
         <li class="node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Act</h3><span class="fp-tag">Stage 3</span></div>
-          <svg viewBox="0 0 80 60" aria-hidden="true"><path d="M20 56 V40 L40 18 L62 26" stroke="#F2B705" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="40" r="4" fill="#1D252C"/><circle cx="40" cy="18" r="4" fill="#1D252C"/><path d="M62 26 v10 M56 36 h12" stroke="#1D252C" stroke-width="3"/><rect x="12" y="54" width="18" height="4" fill="#1D252C"/></svg>
+          <svg viewBox="0 0 80 60" aria-hidden="true">
+            <path d="M30 10 A18 18 0 0 1 58 14" class="d-bus"/>
+            <path d="M24 46 V34 L42 18 L60 26" class="d-arm"/>
+            <circle cx="24" cy="34" r="2.5" class="d-white"/><circle cx="42" cy="18" r="2.5" class="d-white"/><circle cx="60" cy="26" r="2.5" class="d-white"/>
+            <path d="M60 28 V36 M54 36 H66" class="d-ln"/>
+            <path d="M14 52 H34 L30 46 H18 Z" class="d-body"/>
+            <path d="M8 52 H72" class="d-ln"/>
+          </svg>
           <p>FANUC and Universal Robots, VFD-driven motors and pneumatics do the work. I integrate them and tune the cycle time.</p>
           <ul class="chips" aria-label="Tools"><li>FANUC</li><li>UR</li><li>VFDs</li><li>Pneumatics</li></ul>
         </li>
         <li class="node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><h3>Monitor</h3><span class="fp-tag">Stage 4</span></div>
-          <svg viewBox="0 0 80 60" aria-hidden="true"><rect x="8" y="8" width="64" height="40" rx="4" fill="#D3D7D8" stroke="#1D252C" stroke-width="3"/><path d="M16 38 L28 26 L38 32 L50 18 L64 24" stroke="#2E9E5B" stroke-width="3" fill="none"/><path d="M32 48 L28 56 H52 L48 48" fill="#1D252C"/></svg>
+          <svg viewBox="0 0 80 60" aria-hidden="true">
+            <rect x="8" y="5" width="64" height="40" rx="1.5" class="d-white"/>
+            <path d="M12 14 H68" class="d-lim"/>
+            <path d="M12 38 L20 31 L28 34 L37 23 L46 27 L54 19 L68 22" class="d-trend"/>
+            <path d="M12 41 H68" class="d-thin"/>
+            <path d="M40 45 V51 M30 52 H50" class="d-ln"/>          </svg>
           <p>Ignition and FactoryTalk View screens for alarms and diagnostics, linked to MES for traceability and uptime tracking.</p>
           <ul class="chips" aria-label="Tools"><li>Ignition 8.1</li><li>FactoryTalk View</li><li>MES</li><li>EtherNet/IP</li></ul>
         </li>
@@ -279,11 +316,15 @@
             <p class="when">2018 to 2022</p>
             <p>I started in aerospace: a crew re-entry vehicle design project, and published research on piezo sensors for structural health monitoring.</p>
             <ul class="chips" aria-label="Tools"><li>CATIA</li><li>SolidWorks</li><li>Piezo sensors</li></ul>
-            <svg class="capsule" viewBox="0 0 120 70" aria-hidden="true">
-              <path d="M30 60 Q60 2 90 60 Z" fill="#F2F3F2" stroke="#1D252C" stroke-width="2.5"/>
-              <path d="M24 60 Q60 72 96 60 Z" fill="#F2B705" stroke="#1D252C" stroke-width="2.5"/>
-              <circle cx="60" cy="40" r="7" fill="#7FB2E8" stroke="#1D252C" stroke-width="2.5"/>
-              <path d="M16 66 q-8 -3 -14 0 M104 66 q8 -3 14 0" stroke="#C8312B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <svg class="capsule" viewBox="0 0 170 100" aria-hidden="true">
+              <path d="M85 4 V98" class="d-cl"/>
+              <path d="M52 66 L71 20 Q85 14 99 20 L118 66 Z" class="d-body"/>
+              <path d="M44 66 Q85 84 126 66 Z" class="d-hatch"/>
+              <circle cx="85" cy="48" r="3.5" class="d-white"/><path d="M79 48 H91 M85 42 V54" class="d-ln" stroke-width="1"/>
+              <text x="92" y="45" class="d-lbl m">CG</text>
+              <path d="M62 98 V84" class="d-sig"/><path d="M85 99 V81" class="d-sig"/><path d="M108 98 V84" class="d-sig"/>
+              <text x="114" y="96" class="d-lbl m">V∞</text>
+              <path d="M124 71 L142 76" class="d-thin"/><text x="144" y="79" class="d-lbl m">TPS</text>
             </svg>
           </div>
         </li>
@@ -306,11 +347,26 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 01</span><span class="fp-tag">2024</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <rect x="10" y="78" width="200" height="12" rx="6" class="ink-fill"/>
-            <rect x="40" y="58" width="22" height="20" class="box"/><rect x="100" y="58" width="22" height="20" class="box blue"/>
-            <path d="M150 84 L190 54" class="ink" stroke-width="5" stroke-linecap="round"/>
-            <rect x="160" y="20" width="44" height="28" rx="3" class="panel"/>
-            <path d="M166 40 l8 -10 l8 6 l8 -12 l8 8" class="ink"/>
+            <rect x="12" y="84" width="150" height="10" rx="5" class="d-body"/>
+            <circle cx="17" cy="89" r="1.5" class="d-dot"/><circle cx="157" cy="89" r="1.5" class="d-dot"/>
+            <rect x="26" y="70" width="14" height="14" class="d-white"/>
+            <rect x="58" y="70" width="14" height="14" class="d-acc"/>
+            <rect x="84" y="56" width="10" height="8" class="d-body"/>
+            <path d="M89 64 V82" class="d-bus"/>
+            <text x="97" y="63" class="d-lbl m">PE</text>
+            <path d="M140 84 L158 70" class="d-ln" stroke-width="2.5"/><circle cx="140" cy="84" r="2" class="d-dot"/>
+            <rect x="74" y="14" width="40" height="20" class="d-white"/>
+            <text x="94" y="27" text-anchor="middle" class="d-lbl">PLC</text>
+            <path d="M89 56 V36" class="d-sig"/>
+            <path d="M114 28 H149 V66" class="d-sig"/>
+            <path d="M114 20 H160" class="d-bus"/>
+            <text x="124" y="16" class="d-lbl m">ENIP</text>
+            <rect x="160" y="10" width="50" height="34" class="d-white"/>
+            <path d="M165 17 H205" class="d-lim"/>
+            <path d="M165 37 L174 29 L182 32 L192 21 L205 25" class="d-trend"/>
+            <text x="185" y="54" text-anchor="middle" class="d-lbl m">SCADA</text>
+            <path d="M22 106 H50" class="d-sig"/><text x="54" y="108" class="d-lbl m">FLOW</text>
+            <text x="150" y="108" class="d-lbl m">DIVERT</text>
           </svg>
           <h3>Material sorting with SCADA</h3>
           <p>Parts get sorted automatically, and operators watch the whole line on one Ignition screen.</p>
@@ -319,12 +375,19 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 02</span><span class="fp-tag">2024</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <path d="M30 100 L70 60 L170 60 L130 100 Z" class="panel"/>
-            <path d="M50 80 L150 80 M100 60 L80 100 M135 60 L115 100 M65 60 L45 100" class="ink" stroke-width="1.5"/>
-            <path d="M40 92 q30 -12 60 -2 q30 10 50 -6" class="snow"/>
-            <g transform="translate(150 22)"><rect x="-14" y="-4" width="28" height="8" rx="4" class="ink-fill"/>
-              <path d="M-26 -8 h16 M10 -8 h16" class="ink" stroke-width="3" stroke-linecap="round"/>
-              <path d="M0 4 L-18 40 M0 4 L18 40" class="beam-line"/></g>
+            <path d="M14 22 V14 H22 M198 14 H206 V22 M206 96 V104 H198 M22 104 H14 V96" class="d-ln"/>
+            <g class="d-pv">
+              <rect x="32" y="26" width="36" height="30"/><rect x="72" y="26" width="36" height="30"/><rect x="112" y="26" width="36" height="30"/><rect x="152" y="26" width="36" height="30"/>
+              <rect x="32" y="60" width="36" height="30"/><rect x="72" y="60" width="36" height="30"/><rect x="112" y="60" width="36" height="30"/><rect x="152" y="60" width="36" height="30"/>
+            </g>
+            <path d="M44 26v30M56 26v30M32 41h36M84 26v30M96 26v30M72 41h36M124 26v30M136 26v30M112 41h36M164 26v30M176 26v30M152 41h36M44 60v30M56 60v30M32 75h36M84 60v30M96 60v30M72 75h36M124 60v30M136 60v30M112 75h36M164 60v30M176 60v30M152 75h36" class="d-thin"/>
+            <path d="M73 27 H147 V36 Q132 46 118 40 Q104 34 90 42 Q80 46 73 40 Z" class="d-snow"/>
+            <path d="M33 61 H67 V72 Q56 80 45 74 Q38 71 33 76 Z" class="d-snow"/>
+            <rect x="70" y="23" width="80" height="24" class="d-bbox"/>
+            <rect x="70" y="15" width="24" height="8" class="d-tagbg"/><text x="72.5" y="21.2" class="d-lbl w">snow</text>
+            <rect x="29" y="57" width="42" height="24" class="d-bbox"/>
+            <rect x="29" y="49" width="24" height="8" class="d-tagbg"/><text x="31.5" y="55.2" class="d-lbl w">snow</text>
+            <text x="110" y="102" text-anchor="middle" class="d-lbl m">YOLOv8 · drone frame</text>
           </svg>
           <h3>Finding solar panels under snow</h3>
           <p>A YOLOv8 model that spots snow-covered solar panels in drone photos.</p>
@@ -333,13 +396,21 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 03</span><span class="fp-tag">2023</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <rect x="20" y="40" width="80" height="44" rx="6" class="panel"/>
-            <circle cx="60" cy="62" r="16" class="ink-fill"/>
-            <path d="M48 74 L72 50" stroke="#F2B705" stroke-width="4" stroke-linecap="round"/>
-            <path d="M100 62 h30" class="ink" stroke-width="3"/>
-            <rect x="130" y="42" width="70" height="40" rx="4" class="panel"/>
-            <text x="165" y="66" text-anchor="middle" class="svg-small">ECM</text>
-            <path d="M140 96 h50" class="dash"/><text x="165" y="112" text-anchor="middle" class="svg-small">CAN</text>
+            <path d="M12 92 H208 M12 98 H208" class="d-can"/>
+            <rect x="8" y="89" width="4" height="12" class="d-body"/><rect x="208" y="89" width="4" height="12" class="d-body"/>
+            <path d="M30 58 V92 M34 58 V98 M82 58 V92 M86 58 V98 M134 58 V92 M138 58 V98 M186 58 V92 M190 58 V98" class="d-can"/>
+            <g class="d-dot"><circle cx="30" cy="92" r="1.5"/><circle cx="34" cy="98" r="1.5"/><circle cx="82" cy="92" r="1.5"/><circle cx="86" cy="98" r="1.5"/><circle cx="134" cy="92" r="1.5"/><circle cx="138" cy="98" r="1.5"/><circle cx="186" cy="92" r="1.5"/><circle cx="190" cy="98" r="1.5"/></g>
+            <rect x="14" y="36" width="36" height="22" class="d-white"/><text x="32" y="50" text-anchor="middle" class="d-lbl">APP</text>
+            <rect x="64" y="36" width="40" height="22" class="d-body"/><text x="84" y="50" text-anchor="middle" class="d-lbl">ECM A</text>
+            <rect x="116" y="36" width="40" height="22" class="d-body"/><text x="136" y="50" text-anchor="middle" class="d-lbl">ECM B</text>
+            <rect x="168" y="36" width="40" height="22" class="d-white"/><text x="188" y="50" text-anchor="middle" class="d-lbl">ETC</text>
+            <path d="M20 30 L40 14" class="d-ln" stroke-width="3"/><circle cx="21" cy="29" r="2" class="d-dot"/>
+            <path d="M32 24 V36" class="d-thin"/>
+            <path d="M166 18 H178 M198 18 H210" class="d-thin"/>
+            <circle cx="188" cy="18" r="10" class="d-white"/>
+            <path d="M181 25 L195 11" class="d-ln" stroke-width="2"/><circle cx="188" cy="18" r="1.5" class="d-dot"/>
+            <path d="M188 28 V36" class="d-ln"/>
+            <text x="14" y="112" class="d-lbl m">CAN_H / CAN_L</text>
           </svg>
           <h3>Drive-by-wire throttle</h3>
           <p>An embedded throttle controller that two engine computers talk to over CAN.</p>
@@ -348,12 +419,25 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 04</span><span class="fp-tag">2023</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <rect x="10" y="88" width="150" height="10" rx="5" class="ink-fill"/>
-            <rect x="80" y="18" width="22" height="20" rx="4" fill="#2563A8"/>
-            <path d="M84 40 L70 86 M98 40 L112 86" class="beam-line"/>
-            <rect x="80" y="68" width="22" height="20" class="box"/>
-            <path d="M190 98 V60 L160 40 L140 58" class="arm"/>
-            <circle cx="190" cy="60" r="4" class="ink-fill"/><circle cx="160" cy="40" r="4" class="ink-fill"/>
+            <circle cx="164" cy="75" r="42" class="d-thin" stroke-dasharray="3 3"/>
+            <path d="M10 62 H138 M10 88 H138" class="d-ln"/>
+            <rect x="44" y="62" width="26" height="26" class="d-fov"/>
+            <rect x="50" y="28" width="14" height="10" rx="1" class="d-body"/>
+            <path d="M52 38 L44 62 M62 38 L70 62" class="d-bus"/>
+            <path d="M16 75 H34" class="d-sig"/>
+            <circle cx="57" cy="75" r="5" class="d-white"/>
+            <rect x="90" y="70" width="10" height="10" class="d-white"/>
+            <path d="M115 80 L120 70 L125 80 Z" class="d-acc"/>
+            <rect x="10" y="10" width="34" height="18" class="d-white"/><text x="27" y="22" text-anchor="middle" class="d-lbl">PLC</text>
+            <path d="M44 19 H57 V28" class="d-bus"/>
+            <path d="M44 14 H164 V68" class="d-bus"/>
+            <path d="M164 75 L146 56 L128 72" class="d-arm"/>
+            <circle cx="146" cy="56" r="2.5" class="d-white"/>
+            <circle cx="164" cy="75" r="7" class="d-body"/><circle cx="164" cy="75" r="2" class="d-dot"/>
+            <rect x="180" y="28" width="22" height="14" class="d-white"/><text x="191" y="38" text-anchor="middle" class="d-lbl">A</text>
+            <rect x="180" y="100" width="22" height="14" class="d-white"/><text x="191" y="110" text-anchor="middle" class="d-lbl">B</text>
+            <text x="46" y="99" class="d-lbl m">FOV</text>
+            <text x="170" y="92" class="d-lbl m">R1</text>
           </svg>
           <h3>Robot vision cell</h3>
           <p>A camera identifies parts on a conveyor and a robot sorts them, all run by one PLC. This one became a paper.</p>
@@ -362,11 +446,21 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 05</span><span class="fp-tag">2022</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <path d="M110 10 V36" class="ink" stroke-width="10" stroke-linecap="round"/>
-            <rect x="70" y="36" width="80" height="14" rx="4" class="ink-fill"/>
-            <path d="M80 50 v14 M140 50 v14" class="ink" stroke-width="4"/>
-            <path d="M70 64 h20 l-4 10 h-12 Z M130 64 h20 l-4 10 h-12 Z" fill="#3B454C"/>
-            <rect x="66" y="76" width="88" height="30" class="box"/>
+            <path d="M110 4 V100" class="d-cl"/>
+            <rect x="98" y="8" width="24" height="8" class="d-body"/>
+            <rect x="58" y="16" width="104" height="10" class="d-body"/>
+            <path d="M72 26 V38 M96 26 V38 M124 26 V38 M148 26 V38" class="d-ln"/>
+            <path d="M68 38 H76 L80 48 H64 Z M92 38 H100 L104 48 H88 Z M120 38 H128 L132 48 H116 Z M144 38 H152 L156 48 H140 Z" class="d-white"/>
+            <rect x="54" y="48" width="112" height="26" class="d-hatch"/>
+            <path d="M162 21 H178 V9 H194" class="d-sig"/>
+            <text x="197" y="12" class="d-lbl m">VAC</text>
+            <path d="M72 76 V92 M148 76 V92" class="d-thin" stroke-width=".6"/>
+            <path d="M72 88 H148" class="d-dim"/>
+            <text x="110" y="99" text-anchor="middle" class="d-lbl m">A</text>
+            <path d="M168 48 H184 M168 74 H184" class="d-thin" stroke-width=".6"/>
+            <path d="M180 48 V74" class="d-dim"/>
+            <text x="185" y="64" class="d-lbl m">B</text>
+            <text x="8" y="113" class="d-lbl m">EOAT · FRONT VIEW</text>
           </svg>
           <h3>Suction gripper for a FANUC robot</h3>
           <p>I designed the gripper, programmed the pick-and-place, and cut the cycle time.</p>
@@ -375,12 +469,20 @@
         <article class="sheet node">
           <div class="fp-bar"><span class="fp-led" aria-hidden="true"></span><span class="fp-title">Drawing 06</span><span class="fp-tag">2022</span></div>
           <svg viewBox="0 0 220 120" aria-hidden="true" class="pict">
-            <rect x="30" y="34" width="56" height="56" rx="6" class="panel"/>
-            <circle cx="58" cy="62" r="14" class="ink-fill"/>
-            <path d="M58 62 L58 50" stroke="#F2B705" stroke-width="3" stroke-linecap="round"/>
-            <path d="M86 62 h40" class="ink" stroke-width="4"/>
-            <rect x="150" y="48" width="24" height="28" rx="3" fill="#2563A8"/>
-            <path d="M146 54 q-8 8 0 16 M138 50 q-14 12 0 24" class="ink" fill="none"/>
+            <rect x="10" y="18" width="26" height="16" class="d-white"/><text x="23" y="29" text-anchor="middle" class="d-lbl">US</text>
+            <rect x="10" y="46" width="26" height="16" class="d-white"/><text x="23" y="57" text-anchor="middle" class="d-lbl">IR</text>
+            <rect x="10" y="74" width="26" height="16" class="d-white"/><text x="23" y="85" text-anchor="middle" class="d-lbl">LDR</text>
+            <path d="M36 26 L66 44" class="d-sig"/><path d="M36 54 H66" class="d-sig"/><path d="M36 82 L66 64" class="d-sig"/>
+            <rect x="66" y="36" width="52" height="36" class="d-body"/>
+            <text x="92" y="52" text-anchor="middle" class="d-lbl">LabVIEW</text>
+            <text x="92" y="63" text-anchor="middle" class="d-lbl m">DAQ</text>
+            <path d="M118 54 H136" class="d-sig"/>
+            <rect x="136" y="44" width="30" height="20" class="d-white"/><text x="151" y="57" text-anchor="middle" class="d-lbl">DRV</text>
+            <path d="M166 54 H180" class="d-sig"/>
+            <circle cx="194" cy="54" r="12" class="d-white"/><text x="194" y="57" text-anchor="middle" class="d-lbl">M</text>
+            <path d="M136 26 h6 v-8 h6 v8 h6 v-8 h6 v8 h6 v-8 h6 v8" class="d-pulse"/>
+            <text x="182" y="22" class="d-lbl m">STEP</text>
+            <text x="66" y="96" class="d-lbl m">real-time speed + position</text>
           </svg>
           <h3>Stepper motor that follows sensors</h3>
           <p>A motor that sets its speed and position in real time from ultrasonic, IR and light sensors.</p>
@@ -652,6 +754,7 @@
           </figcaption>
           </figure>
           <div class="vis-side">
+          <p class="vis-empty" id="vis-empty">Country counts appear here once the counter responds.</p>
           <table class="visitors" id="vis-table" hidden>
             <caption class="sr-only">Visitors by country</caption>
             <thead><tr><th scope="col">Country</th><th scope="col">Visitors</th><th scope="col"><span class="sr-only">Share</span></th></tr></thead>
@@ -747,7 +850,8 @@
   </main>
 
   <footer class="foot">
-    <p>End of line. Srija Gummadi, controls engineer, USA.</p>
+    <p><strong>Srija Gummadi</strong>, controls engineer, Columbus, USA</p>
+    <p><a href="mailto:srijagummadi12@gmail.com">srijagummadi12@gmail.com</a> · <a href="#top">Back to top</a></p>
   </footer>
 
   <script src="main.js" defer></script>
